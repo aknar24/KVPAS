@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Photography Society</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-deep:    #0f1923;
+      --bg-main:    #1a2a3a;
+      --bg-card:    #1e3148;
+      --gold:       #F5C842;
+      --gold-dim:   #c9a030;
+      --steel:      #4A7FA5;
+      --text:       #E8EDF2;
+      --text-muted: #8fa3b8;
+      --border:     rgba(245,200,66,0.18);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-deep);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 4vw;
+      background: rgba(15,25,35,0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: .75rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 700;
+      color: var(--gold); letter-spacing: .02em;
+    }
+    .nav-logo .aperture-icon {
+      width: 36px; height: 36px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .nav-logo .aperture-icon::before {
+      content: '';
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: .875rem; font-weight: 500; letter-spacing: .06em;
+      text-transform: uppercase; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      background: radial-gradient(ellipse at 60% 40%, #1e3a5a 0%, #0f1923 70%);
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+    }
+
+    /* Film-grain overlay */
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: .35; pointer-events: none;
+    }
+
+    /* Aperture ring — the signature element */
+    .aperture-ring {
+      position: absolute;
+      width: 520px; height: 520px;
+      border-radius: 50%;
+      border: 1px solid rgba(245,200,66,.12);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: ring-spin 28s linear infinite;
+    }
+    .aperture-ring::before {
+      content: '';
+      position: absolute; inset: 22px;
+      border-radius: 50%;
+      border: 1px dashed rgba(245,200,66,.07);
+    }
+    .aperture-ring::after {
+      content: '';
+      position: absolute; inset: -22px;
+      border-radius: 50%;
+      border: 1px solid rgba(74,127,165,.18);
+    }
+    .aperture-ring-2 {
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      border: 1px solid rgba(74,127,165,.08);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: ring-spin 44s linear infinite reverse;
+    }
+    @keyframes ring-spin { to { transform: translate(-50%,-50%) rotate(360deg); } }
+
+    /* Blade marks on ring */
+    .blade {
+      position: absolute;
+      width: 2px; height: 30px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      top: 0; left: 50%; transform-origin: bottom center;
+      opacity: .5;
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 720px; }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .6rem;
+      font-size: .75rem; font-weight: 600; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: ''; display: block; width: 28px; height: 1px; background: var(--gold);
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 900; line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+    .hero-title span { color: var(--gold); }
+
+    .hero-sub {
+      font-size: 1.05rem; color: var(--text-muted);
+      line-height: 1.7; max-width: 520px; margin: 0 auto 2.5rem;
+    }
+
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: .75rem;
+      background: var(--gold); color: #0f1923;
+      padding: .85rem 2.2rem; border-radius: 2px;
+      font-weight: 700; font-size: .9rem; letter-spacing: .06em;
+      text-transform: uppercase; text-decoration: none;
+      transition: background .2s, transform .15s;
+    }
+    .hero-cta:hover { background: #ffd84d; transform: translateY(-2px); }
+    .hero-cta svg { width: 16px; height: 16px; }
+
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+      color: var(--text-muted); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase;
+      animation: bounce 2.4s ease-in-out infinite;
+    }
+    .hero-scroll::after {
+      content: ''; width: 1px; height: 42px; background: linear-gradient(to bottom, var(--text-muted), transparent);
+    }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 6rem 6vw; }
+    .section-label {
+      font-size: .72rem; font-weight: 600; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--gold);
+      display: flex; align-items: center; gap: .6rem;
+      margin-bottom: .75rem;
+    }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); max-width: 60px; }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; color: var(--text); line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+    .section-title span { color: var(--gold); }
+    .section-body { color: var(--text-muted); line-height: 1.8; max-width: 600px; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg-main); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center; margin-top: 3.5rem;
+    }
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem;
+    }
+    .stat-card {
+      border: 1px solid var(--border);
+      border-radius: 4px; padding: 1.4rem;
+      background: var(--bg-card);
+      transition: border-color .2s, transform .2s;
+    }
+    .stat-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem; font-weight: 900; color: var(--gold);
+    }
+    .stat-desc { font-size: .8rem; color: var(--text-muted); margin-top: .2rem; }
+
+    .about-visual {
+      position: relative; aspect-ratio: 4/3;
+      border-radius: 4px; overflow: hidden;
+    }
+    .about-placeholder {
+      width: 100%; height: 100%; min-height: 320px;
+      background: linear-gradient(135deg, #1e3148 0%, #0f1923 100%);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 1rem;
+      border: 2px dashed var(--border);
+      border-radius: 4px; color: var(--text-muted);
+      font-size: .85rem; letter-spacing: .08em;
+    }
+    .about-placeholder .cam-icon { font-size: 3rem; opacity: .4; }
+    .about-corner {
+      position: absolute; bottom: -1px; right: -1px;
+      width: 60px; height: 60px;
+      border-top: 2px solid var(--gold); border-left: 2px solid var(--gold);
+      transform: rotate(180deg);
+    }
+    .about-corner-2 {
+      position: absolute; top: -1px; left: -1px;
+      width: 40px; height: 40px;
+      border-bottom: 2px solid var(--steel); border-right: 2px solid var(--steel);
+      transform: rotate(180deg);
+    }
+
+    /* ── GALLERY ── */
+    #gallery { background: var(--bg-deep); }
+    .gallery-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem; }
+    .gallery-filters {
+      display: flex; gap: .6rem;
+    }
+    .filter-btn {
+      background: none; border: 1px solid var(--border);
+      color: var(--text-muted); padding: .4rem 1rem;
+      font-size: .78rem; letter-spacing: .08em; text-transform: uppercase;
+      cursor: pointer; border-radius: 2px; transition: all .2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      border-color: var(--gold); color: var(--gold); background: rgba(245,200,66,.06);
+    }
+
+    .gallery-grid {
+      columns: 3; column-gap: 1rem;
+    }
+    .gallery-item {
+      break-inside: avoid; margin-bottom: 1rem;
+      position: relative; overflow: hidden;
+      border-radius: 3px; cursor: pointer;
+      border: 1px solid transparent; transition: border-color .2s;
+    }
+    .gallery-item:hover { border-color: var(--gold); }
+    .gallery-item img { width: 100%; display: block; }
+    .gallery-placeholder {
+      width: 100%; background: var(--bg-card);
+      border: 1px dashed var(--border); border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted); font-size: .75rem; letter-spacing: .08em;
+      flex-direction: column; gap: .5rem;
+    }
+    .gallery-placeholder .ph-icon { font-size: 1.8rem; opacity: .35; }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(15,25,35,.85) 0%, transparent 55%);
+      opacity: 0; transition: opacity .25s;
+      display: flex; align-items: flex-end; padding: 1rem;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay-text {
+      font-size: .78rem; color: var(--text); font-weight: 500;
+      letter-spacing: .06em; text-transform: uppercase;
+    }
+
+    /* ── TEAM ── */
+    #team { background: var(--bg-main); }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .team-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px; overflow: hidden;
+      transition: transform .2s, border-color .2s;
+    }
+    .team-card:hover { transform: translateY(-5px); border-color: var(--gold); }
+    .team-photo {
+      aspect-ratio: 1/1; width: 100%;
+      background: linear-gradient(135deg, #1e3a5a, #0f1923);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; color: var(--text-muted); opacity: .4;
+      border-bottom: 1px solid var(--border);
+    }
+    .team-info { padding: 1.2rem 1rem 1rem; }
+    .team-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; font-weight: 600; color: var(--text);
+    }
+    .team-role {
+      font-size: .75rem; color: var(--gold); margin-top: .2rem;
+      letter-spacing: .06em; text-transform: uppercase;
+    }
+    .team-grade {
+      font-size: .78rem; color: var(--text-muted); margin-top: .3rem;
+    }
+
+    /* ── EVENTS ── */
+    #events { background: var(--bg-deep); }
+    .events-list { margin-top: 3rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .event-card {
+      display: grid; grid-template-columns: 80px 1fr auto;
+      gap: 1.5rem; align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px; padding: 1.4rem 1.8rem;
+      transition: border-color .2s, transform .15s;
+    }
+    .event-card:hover { border-color: var(--gold); transform: translateX(4px); }
+    .event-date {
+      text-align: center;
+      border-right: 1px solid var(--border);
+      padding-right: 1.5rem;
+    }
+    .event-day {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 900; color: var(--gold); line-height: 1;
+    }
+    .event-month {
+      font-size: .7rem; color: var(--text-muted); letter-spacing: .12em;
+      text-transform: uppercase; margin-top: .15rem;
+    }
+    .event-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: .3rem;
+    }
+    .event-meta { font-size: .8rem; color: var(--text-muted); }
+    .event-badge {
+      background: rgba(245,200,66,.1); border: 1px solid rgba(245,200,66,.3);
+      color: var(--gold); font-size: .7rem; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: .3rem .7rem; border-radius: 2px; white-space: nowrap;
+    }
+    .event-badge.upcoming { background: rgba(74,127,165,.1); border-color: rgba(74,127,165,.3); color: var(--steel); }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg-main); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem; }
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .contact-icon {
+      width: 40px; height: 40px; border: 1px solid var(--border); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); font-size: 1rem; flex-shrink: 0;
+      background: var(--bg-card);
+    }
+    .contact-text h4 { color: var(--text); font-size: .9rem; font-weight: 600; margin-bottom: .2rem; }
+    .contact-text p { color: var(--text-muted); font-size: .85rem; line-height: 1.6; }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: .4rem; }
+    .form-group label {
+      font-size: .75rem; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--text-muted);
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      background: var(--bg-card); border: 1px solid var(--border);
+      color: var(--text); padding: .75rem 1rem; border-radius: 3px;
+      font-family: 'Inter', sans-serif; font-size: .9rem;
+      transition: border-color .2s; outline: none;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .submit-btn {
+      background: var(--gold); color: #0f1923; border: none;
+      padding: .9rem 2rem; font-family: 'Inter', sans-serif;
+      font-weight: 700; font-size: .85rem; letter-spacing: .08em;
+      text-transform: uppercase; cursor: pointer; border-radius: 2px;
+      transition: background .2s, transform .15s; margin-top: .5rem;
+    }
+    .submit-btn:hover { background: #ffd84d; transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg-deep);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 6vw;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold); font-size: 1rem; font-weight: 700;
+    }
+    .footer-copy { color: var(--text-muted); font-size: .8rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
+      color: var(--text-muted); font-size: .8rem; text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .gallery-grid { columns: 2; }
+      .event-card { grid-template-columns: 60px 1fr; }
+      .event-badge { display: none; }
+    }
+    @media (max-width: 600px) {
+      .gallery-grid { columns: 1; }
+      .nav-links { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+      .aperture-ring { width: 280px; height: 280px; }
+      .aperture-ring-2 { width: 380px; height: 380px; }
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(10,16,24,.97);
+      display: none; align-items: center; justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 3px; }
+    .lightbox-close {
+      position: absolute; top: 1.5rem; right: 2rem;
+      color: var(--text-muted); font-size: 2rem; cursor: pointer;
+      background: none; border: none; transition: color .2s;
+    }
+    .lightbox-close:hover { color: var(--gold); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">
+      <div class="aperture-icon"></div>
+      PhotographySoc
+    </div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="aperture-ring">
+      <!-- Blades -->
+      <div class="blade" style="transform:rotate(0deg) translateX(-50%)"></div>
+      <div class="blade" style="transform:rotate(45deg) translateX(-50%)"></div>
+      <div class="blade" style="transform:rotate(90deg) translateX(-50%)"></div>
+      <div class="blade" style="transform:rotate(135deg) translateX(-50%)"></div>
+      <div class="blade" style="transform:rotate(180deg) translateX(-50%)"></div>
+      <div class="blade" style="transform:rotate(225deg) translateX(-50%)"></div>
+      <div class="blade" style="transform:rotate(270deg) translateX(-50%)"></div>
+      <div class="blade" style="transform:rotate(315deg) translateX(-50%)"></div>
+    </div>
+    <div class="aperture-ring-2"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Photography Society</div>
+
+      <!-- Replace the placeholder below with your school name -->
+      <h1 class="hero-title">See the World<br>Through the <span>Lens</span></h1>
+      <p class="hero-sub">
+        Capturing light, moments, and stories — our school's Photography Society welcomes every student who wants to learn, create, and grow behind the camera.
+      </p>
+      <a href="#gallery" class="hero-cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M20.188 10.934C20.717 11.416 21 11.698 21 12c0 .302-.283.584-.812 1.066C19.056 14.08 16.309 16 12 16s-7.056-1.92-8.188-2.934C3.283 12.584 3 12.302 3 12c0-.302.283-.584.812-1.066C4.944 9.92 7.691 8 12 8s7.056 1.92 8.188 2.934z"/></svg>
+        Explore Gallery
+      </a>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="reveal">
+      <div class="section-label">Who We Are</div>
+      <h2 class="section-title">More Than a Club —<br>A <span>Community</span></h2>
+    </div>
+    <div class="about-grid">
+      <div class="reveal">
+        <p class="section-body">
+          Founded by a group of passionate students, our Photography Society is a creative hub where beginners and experienced photographers come together to explore the art of image-making.
+        </p>
+        <p class="section-body" style="margin-top:1rem;">
+          We host workshops, photo walks, editing sessions, and competitions throughout the year — giving every member a chance to develop their eye, technical skill, and unique voice.
+        </p>
+        <div class="about-stats">
+          <div class="stat-card reveal">
+            <div class="stat-num">120+</div>
+            <div class="stat-desc">Active Members</div>
+          </div>
+          <div class="stat-card reveal">
+            <div class="stat-num">8</div>
+            <div class="stat-desc">Years Active</div>
+          </div>
+          <div class="stat-card reveal">
+            <div class="stat-num">30+</div>
+            <div class="stat-desc">Events Per Year</div>
+          </div>
+          <div class="stat-card reveal">
+            <div class="stat-num">14</div>
+            <div class="stat-desc">Awards Won</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="about-visual">
+          <div class="about-placeholder">
+            <span class="cam-icon">📷</span>
+            <span>Upload your society photo here</span>
+          </div>
+          <div class="about-corner"></div>
+          <div class="about-corner-2"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="gallery-header">
+      <div class="reveal">
+        <div class="section-label">Our Work</div>
+        <h2 class="section-title">The <span>Gallery</span></h2>
+      </div>
+      <div class="gallery-filters reveal">
+        <button class="filter-btn active">All</button>
+        <button class="filter-btn">Portrait</button>
+        <button class="filter-btn">Landscape</button>
+        <button class="filter-btn">Events</button>
+      </div>
+    </div>
+
+    <div class="gallery-grid reveal">
+      <!-- Add your actual photos by replacing these placeholders with <img> tags -->
+      <div class="gallery-item">
+        <div class="gallery-placeholder" style="height:260px">
+          <span class="ph-icon">🌅</span><span>Landscape Shot</span>
+        </div>
+        <div class="gallery-overlay"><span class="gallery-overlay-text">Golden Hour</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder" style="height:180px">
+          <span class="ph-icon">👤</span><span>Portrait</span>
+        </div>
+        <div class="gallery-overlay"><span class="gallery-overlay-text">Studio Session</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder" style="height:220px">
+          <span class="ph-icon">🎭</span><span>Events</span>
+        </div>
+        <div class="gallery-overlay"><span class="gallery-overlay-text">Annual Showcase</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder" style="height:190px">
+          <span class="ph-icon">🏙️</span><span>Urban</span>
+        </div>
+        <div class="gallery-overlay"><span class="gallery-overlay-text">City Lights</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder" style="height:240px">
+          <span class="ph-icon">🌿</span><span>Nature</span>
+        </div>
+        <div class="gallery-overlay"><span class="gallery-overlay-text">Macro World</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder" style="height:200px">
+          <span class="ph-icon">📸</span><span>Street</span>
+        </div>
+        <div class="gallery-overlay"><span class="gallery-overlay-text">Street Moments</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder" style="height:170px">
+          <span class="ph-icon">🌙</span><span>Night</span>
+        </div>
+        <div class="gallery-overlay"><span class="gallery-overlay-text">Night Sky</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder" style="height:210px">
+          <span class="ph-icon">🎨</span><span>Abstract</span>
+        </div>
+        <div class="gallery-overlay"><span class="gallery-overlay-text">Abstract Forms</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder" style="height:230px">
+          <span class="ph-icon">🏆</span><span>Award Winner</span>
+        </div>
+        <div class="gallery-overlay"><span class="gallery-overlay-text">Best of 2024</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team">
+    <div class="reveal">
+      <div class="section-label">Meet the Team</div>
+      <h2 class="section-title">The People Behind<br>the <span>Lens</span></h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-photo">👤</div>
+        <div class="team-info">
+          <div class="team-name">Your Name Here</div>
+          <div class="team-role">President</div>
+          <div class="team-grade">Grade 12 · Landscape</div>
+        </div>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-photo">👤</div>
+        <div class="team-info">
+          <div class="team-name">Your Name Here</div>
+          <div class="team-role">Vice President</div>
+          <div class="team-grade">Grade 12 · Portrait</div>
+        </div>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-photo">👤</div>
+        <div class="team-info">
+          <div class="team-name">Your Name Here</div>
+          <div class="team-role">Secretary</div>
+          <div class="team-grade">Grade 11 · Street</div>
+        </div>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-photo">👤</div>
+        <div class="team-info">
+          <div class="team-name">Your Name Here</div>
+          <div class="team-role">Creative Director</div>
+          <div class="team-grade">Grade 11 · Abstract</div>
+        </div>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-photo">👤</div>
+        <div class="team-info">
+          <div class="team-name">Your Name Here</div>
+          <div class="team-role">Equipment Manager</div>
+          <div class="team-grade">Grade 10 · Nature</div>
+        </div>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-photo">👤</div>
+        <div class="team-info">
+          <div class="team-name">Your Name Here</div>
+          <div class="team-role">Events Coordinator</div>
+          <div class="team-grade">Grade 10 · Events</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENTS -->
+  <section id="events">
+    <div class="reveal">
+      <div class="section-label">What's On</div>
+      <h2 class="section-title">Upcoming <span>Events</span></h2>
+    </div>
+    <div class="events-list">
+      <div class="event-card reveal">
+        <div class="event-date">
+          <div class="event-day">14</div>
+          <div class="event-month">Jul</div>
+        </div>
+        <div>
+          <div class="event-title">Golden Hour Photo Walk</div>
+          <div class="event-meta">📍 School Grounds &nbsp;·&nbsp; 5:00 PM – 7:00 PM</div>
+        </div>
+        <div class="event-badge upcoming">Upcoming</div>
+      </div>
+      <div class="event-card reveal">
+        <div class="event-date">
+          <div class="event-day">22</div>
+          <div class="event-month">Jul</div>
+        </div>
+        <div>
+          <div class="event-title">Portrait Workshop — Lighting Fundamentals</div>
+          <div class="event-meta">📍 Photography Lab &nbsp;·&nbsp; 3:30 PM – 5:30 PM</div>
+        </div>
+        <div class="event-badge upcoming">Upcoming</div>
+      </div>
+      <div class="event-card reveal">
+        <div class="event-date">
+          <div class="event-day">05</div>
+          <div class="event-month">Aug</div>
+        </div>
+        <div>
+          <div class="event-title">Annual Photo Competition 2025</div>
+          <div class="event-meta">📍 Main Hall &nbsp;·&nbsp; All Day Event</div>
+        </div>
+        <div class="event-badge">Register Now</div>
+      </div>
+      <div class="event-card reveal">
+        <div class="event-date">
+          <div class="event-day">20</div>
+          <div class="event-month">Aug</div>
+        </div>
+        <div>
+          <div class="event-title">End-of-Term Gallery Exhibition</div>
+          <div class="event-meta">📍 School Auditorium &nbsp;·&nbsp; 6:00 PM – 9:00 PM</div>
+        </div>
+        <div class="event-badge upcoming">Upcoming</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="reveal">
+      <div class="section-label">Get in Touch</div>
+      <h2 class="section-title">Join Us or Say <span>Hello</span></h2>
+      <p class="section-body" style="margin-top:.6rem;">Have questions? Want to join? We'd love to hear from you.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div class="contact-text">
+            <h4>Email Us</h4>
+            <p>photosoc@yourschool.edu<br>We reply within 24 hours</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-text">
+            <h4>Find Us</h4>
+            <p>Photography Lab, Block C<br>Your School Name, City</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div class="contact-text">
+            <h4>Meeting Times</h4>
+            <p>Every Wednesday &amp; Friday<br>3:30 PM – 5:00 PM</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📱</div>
+          <div class="contact-text">
+            <h4>Social Media</h4>
+            <p>@YourSchoolPhotoSoc<br>Instagram · Facebook</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" placeholder="John"/>
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" placeholder="Doe"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="you@school.edu"/>
+          </div>
+          <div class="form-group">
+            <label>Grade</label>
+            <select style="background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:.75rem 1rem;border-radius:3px;font-family:'Inter',sans-serif;font-size:.9rem;outline:none;">
+              <option value="">Select your grade</option>
+              <option>Grade 9</option>
+              <option>Grade 10</option>
+              <option>Grade 11</option>
+              <option>Grade 12</option>
+              <option>Teacher / Staff</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea placeholder="Tell us about yourself or ask a question…"></textarea>
+          </div>
+          <button class="submit-btn" onclick="handleSubmit()">Send Message →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">📷 Photography Society</div>
+    <div class="footer-copy">© 2025 Photography Society · All rights reserved</div>
+    <div class="footer-links">
+      <a href="#hero">Home</a>
+      <a href="#about">About</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="document.getElementById('lightbox').classList.remove('open')">✕</button>
+  </div>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => io.observe(el));
+
+    // Gallery filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // Form submit
+    function handleSubmit() {
+      alert('Thank you for reaching out! We will get back to you soon. 📷');
+    }
+
+    // Nav active highlighting on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let cur = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 120) cur = s.id;
+      });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#'+cur ? 'var(--gold)' : '';
+      });
+    });
+  </script>
+</body>
+</html>
