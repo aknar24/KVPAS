@@ -200,9 +200,10 @@
       font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 700; color: var(--text); line-height: 1.15;
       margin-bottom: 1.2rem;
+      text-align: center;
     }
     .section-title span { color: var(--gold); }
-    .section-body { color: var(--text-muted); line-height: 1.8; max-width: 600px; }
+    .section-body { color: var(--text-muted); line-height: 1.8; text-align: center; font-size: larger; }
 
     /* ── ABOUT ── */
     #about { background: var(--bg-main); }
@@ -418,7 +419,7 @@
 
     /* ── FOOTER ── */
     footer {
-      background: var(--bg-deep);
+      background: #2b2e31;
       border-top: 1px solid var(--border);
       padding: 2.5rem 6vw;
       display: flex; justify-content: space-between; align-items: center;
@@ -756,13 +757,13 @@
 
   <!-- CONTACT -->
   <section id="contact">
-    <div class="reveal">
-      <div class="section-label">Get in Touch</div>
-      <h2 class="section-title">Join Us or Say <span>Hello</span></h2>
-      <p class="section-body" style="margin-top:.6rem;">Have questions? Want to join? We'd love to hear from you.</p>
+    <div class="reveal visible">
+      
+      <h2 class="section-title"><img src="BR.png" style="max-width: 76%;" ;=""></h2>
+      <p class="section-body" style="margin-top: -2.4rem;">SINCE 1953</p>
     </div>
     <div class="contact-grid">
-      <div class="contact-info reveal">
+      <div class="contact-info reveal visible">
         <div class="contact-item">
           <div class="contact-icon">📧</div>
           <div class="contact-text">
@@ -792,51 +793,16 @@
           </div>
         </div>
       </div>
-      <div class="reveal">
-        <div class="contact-form">
-          <div class="form-row">
-            <div class="form-group">
-              <label>First Name</label>
-              <input type="text" placeholder="John"/>
-            </div>
-            <div class="form-group">
-              <label>Last Name</label>
-              <input type="text" placeholder="Doe"/>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" placeholder="you@school.edu"/>
-          </div>
-          <div class="form-group">
-            <label>Grade</label>
-            <select style="background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:.75rem 1rem;border-radius:3px;font-family:'Inter',sans-serif;font-size:.9rem;outline:none;">
-              <option value="">Select your grade</option>
-              <option>Grade 9</option>
-              <option>Grade 10</option>
-              <option>Grade 11</option>
-              <option>Grade 12</option>
-              <option>Teacher / Staff</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Message</label>
-            <textarea placeholder="Tell us about yourself or ask a question…"></textarea>
-          </div>
-          <button class="submit-btn" onclick="handleSubmit()">Send Message →</button>
-        </div>
-      </div>
-    </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">Kegalu Vidyalaya Photogrpahy Art Society</div>
-    <div class="footer-copy">©2026 . All rights reserved</div>
+    <div class="footer-copy">All rights reserved</div>
     <div class="fooster-logo">
       <p style="
     font-size: medium;
-    font-weight: 100;">© 2026 Created by<a href="https://github.com/aknar24" target="_blank" class="Aknar" style="
+    font-weight: 100;">© 2026 Created by <a href="https://github.com/aknar24" target="blank" class="Aknar" style="
     color: #ffffffc2;
     font-weight: bold;">Aknar®</a></p></div>
   </footer>
