@@ -385,13 +385,14 @@
     #contact { background: var(--bg-main); }
     /* Paragraph */
 .footer-para {
-  font-size: 1.5rem; color: var(--text-muted);
+  font-size: medium; color: var(--text-muted);
+  font-align:center;
   line-height: 1.8; opacity: .35;
-  font-style: italic; max-width: 500px;
+  font-style: italic; max-width: 100%;
 }
 
 /* Social icons */
-.footer-socials { display: flex; gap: 1rem; }
+.footer-socials { display: flex; gap: 1rem; justify-content: center; }
 .social-btn {
   width: 54px; height: 54px;
   border: 1.5px solid rgba(255,255,255,0.18);
@@ -800,7 +801,7 @@
     </p>
 
     <!-- Social Icons -->
-    <div class="footer-socials">
+    <div class="footer-socials" style="margin-top: 1rem;">
       <a href="https://instagram.com/YOURPAGE" target="_blank" class="social-btn" title="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
@@ -862,7 +863,7 @@
     font-size: medium;
     font-weight: 100;">© 2026 Created by <a href="https://github.com/aknar24" target="blank" class="Aknar" style="
     color: #ffffffc2;
-    font-weight: bold;">Aknar®</a></p></div>
+    font-weight: bold;  text-decoration: none;">Aknar®</a></p></div>
   </footer>
 
   <!-- LIGHTBOX -->
