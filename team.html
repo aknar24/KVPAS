@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Our Team · Kegalu Vidyalaya Photography Art Society</title>
+  <title>KVPAS | Team</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/png" href="favicon.png">
@@ -52,15 +52,13 @@
 
     /* ── SECTION 1: COVER ── */
     #cover {
-      min-height: 100vh;
+      min-height: 41vh;
       position: relative;
-      /* 👇 Replace team-cover.jpg with your actual cover image filename */
-      background-image: url(team-cover.jpg);
+      background-image: url(BG-team.jpg);
       background-size: cover;
       background-position: center;
-      display: flex;
       align-items: flex-end;
-      padding: 0 6vw 5rem;
+      padding: 297px 6vw 5rem;
       overflow: hidden;
     }
     /* Dark gradient so the title is always readable over the photo */
@@ -75,46 +73,18 @@
       );
       pointer-events: none;
     }
-    /* Placeholder shown when no cover image is uploaded */
-    .cover-placeholder {
-      position: absolute;
-      top: 80px; left: 3vw; right: 3vw; bottom: 140px;
-      border: 2px dashed rgba(245,200,66,0.2);
-      border-radius: 4px;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: .8rem;
-      color: var(--text-muted);
-      pointer-events: none;
-    }
-    .cover-placeholder-icon { font-size: 3.5rem; opacity: .25; }
-    .cover-placeholder-title {
-      font-size: .85rem; letter-spacing: .14em;
-      text-transform: uppercase;
-    }
-    .cover-placeholder-hint {
-      font-size: .72rem; opacity: .5;
-      font-family: monospace; letter-spacing: .05em;
-    }
-
     /* Title block at the bottom-left of the cover */
     .cover-content { position: relative; z-index: 2; }
     .cover-eyebrow {
       font-family: 'Big Shoulders Stencil Display', cursive;
       display: inline-flex; align-items: center; gap: .6rem;
-      font-size: .75rem; font-weight: 600; letter-spacing: .18em;
-      text-transform: uppercase; color: var(--gold);
+      font-size: 4.75rem; font-weight: 600; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--text);
       margin-bottom: 1rem;
     }
     .cover-eyebrow::before, .cover-eyebrow::after {
-      content: ''; display: block; width: 28px; height: 1px; background: var(--gold);
+      content: ''; display: block; width: 111px; height: 10px; background: var(--gold);
     }
-    .cover-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 7vw, 5rem);
-      font-weight: 900; line-height: 1.05; color: var(--text);
-    }
-    .cover-title span { color: var(--gold); }
 
     /* ── SECTION 2: TEAM GRID ── */
     #team {
@@ -258,7 +228,7 @@
     footer {
       background: #2b2e31;
       border-top: 1px solid var(--border);
-      padding: 2.5rem 6vw;
+      padding: 2rem 6vw;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       align-items: center; gap: 1rem;
@@ -329,14 +299,8 @@
        to your actual image filename.
        ════════════════════════════════ -->
   <section id="cover">
-    <div class="cover-placeholder">
-      <span class="cover-placeholder-icon">🖼️</span>
-      <span class="cover-placeholder-title">Upload your team cover photo here</span>
-      <span class="cover-placeholder-hint">In the CSS → #cover → background-image: url(your-photo.jpg)</span>
-    </div>
     <div class="cover-content reveal">
-      <div class="cover-eyebrow">Meet the Team</div>
-      <h1 class="cover-title">The People Behind<br>the <span>Lens</span></h1>
+      <div class="cover-eyebrow"><b>Meet the Team</b></div>
     </div>
   </section>
 
