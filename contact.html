@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/png" href="favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@400;700;900&family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@400;700;900&family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -55,7 +56,7 @@
     #cover {
       min-height: 41vh;
       position: relative;
-      background-image: url(BG-contact.jpg);
+      background-image: url(contact-BG.png);
       background-size: cover;
       background-position: center;
       align-items: flex-end;
@@ -96,17 +97,11 @@
       font-size: .72rem; font-weight: 600; letter-spacing: .2em;
       text-transform: uppercase; color: var(--gold);
       display: flex; align-items: center; gap: .6rem;
-      margin-bottom: .75rem;
+      margin-bottom: 3rem;
     }
     .section-label::after {
       content: ''; flex: 1; height: 1px;
       background: var(--border); max-width: 60px;
-    }
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 700; color: var(--text); line-height: 1.15;
-      margin-bottom: 3rem;
     }
     .section-title span { color: var(--gold); }
 
@@ -131,7 +126,6 @@
       position: relative;
     }
     .exif-panel::before {
-      content: 'KVPAS.EXIF';
       position: absolute; top: 1.2rem; right: 1.4rem;
       font-family: 'Big Shoulders Stencil Display', cursive;
       font-size: .7rem; letter-spacing: .18em;
@@ -148,8 +142,8 @@
       color: var(--gold-dim); margin-bottom: .3rem;
     }
     .exif-value {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem; color: var(--text); line-height: 1.4;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem; color: var(--text); line-height: 1.4;
     }
     .exif-value a { color: inherit; text-decoration: none; }
     .exif-value a:hover { color: var(--gold); }
@@ -182,10 +176,15 @@
     }
     .person-frame:hover { border-color: var(--gold); transform: translateX(4px); }
     .person-mark {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem; font-weight: 700; color: var(--gold);
-      width: 46px; height: 46px; border: 1px solid var(--border);
+      width: 100px; height: 100px; border: 1px solid var(--border);
       border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    }
+    .person-mark img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;      /* fills and crops instead of squishing */
+      object-position: center;
     }
     .person-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--text); font-weight: 600; }
     .person-role {
@@ -333,11 +332,11 @@
        ════════════════════════════════ -->
   <nav>
     <a href="index.html" class="navbar-brand">
-      <img src="BR icon.png" alt="KVPAS" style="max-width: 100%; height: auto;">
+      <img src="BR.png" alt="KVPAS" style="max-width: 280px; height: auto;">
     </a>
     <ul class="nav-links">
       <li><a href="index.html">HOME</a></li>
-      <li><a href="gallery.html">GALLERY</a></li>
+      <li><a href="gallery.html">EVENTS</a></li>
       <li><a href="team.html">TEAM</a></li>
       <li><a href="competition.html">COMPETITION</a></li>
       <li><a href="contact.html" class="active">CONTACT</a></li>
@@ -400,7 +399,8 @@
 
       <div class="people-strip">
         <div class="person-frame reveal">
-          <div class="person-mark">MIC</div>
+          <div class="person-mark"><div class="person-mark"><img src="mic-photo.jpg" alt="MIC"></div>
+          </div>
           <div>
             <div class="person-name">Your Name Here</div>
             <div class="person-role">Master In Charge</div>
@@ -414,7 +414,7 @@
         </div>
 
         <div class="person-frame reveal">
-          <div class="person-mark">P</div>
+          <div class="person-mark"><div class="person-mark"><img src="mic-photo.jpg" alt="MIC"></div></div>
           <div>
             <div class="person-name">Your Name Here</div>
             <div class="person-role">President</div>
@@ -428,7 +428,7 @@
         </div>
 
         <div class="person-frame reveal">
-          <div class="person-mark">S</div>
+          <div class="person-mark"><div class="person-mark"><img src="mic-photo.jpg" alt="MIC"></div></div>
           <div>
             <div class="person-name">Your Name Here</div>
             <div class="person-role">Secretary</div>
@@ -441,87 +441,6 @@
           </a>
         </div>
       </div>
-
-      <div class="team-card reveal">
-        <div class="team-photo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-          </svg>
-        </div>
-        <div class="team-info">
-          <div class="team-name">Your Name Here</div>
-          <div class="team-role">President</div>
-          <div class="team-grade">Grade 12 · Landscape</div>
-        </div>
-      </div>
-
-      <div class="team-card reveal">
-        <div class="team-photo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-          </svg>
-        </div>
-        <div class="team-info">
-          <div class="team-name">Your Name Here</div>
-          <div class="team-role">Vice President</div>
-          <div class="team-grade">Grade 12 · Portrait</div>
-        </div>
-      </div>
-
-      <div class="team-card reveal">
-        <div class="team-photo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-          </svg>
-        </div>
-        <div class="team-info">
-          <div class="team-name">Your Name Here</div>
-          <div class="team-role">Secretary</div>
-          <div class="team-grade">Grade 11 · Street</div>
-        </div>
-      </div>
-
-      <div class="team-card reveal">
-        <div class="team-photo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-          </svg>
-        </div>
-        <div class="team-info">
-          <div class="team-name">Your Name Here</div>
-          <div class="team-role">Creative Director</div>
-          <div class="team-grade">Grade 11 · Abstract</div>
-        </div>
-      </div>
-
-      <div class="team-card reveal">
-        <div class="team-photo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-          </svg>
-        </div>
-        <div class="team-info">
-          <div class="team-name">Your Name Here</div>
-          <div class="team-role">Equipment Manager</div>
-          <div class="team-grade">Grade 10 · Nature</div>
-        </div>
-      </div>
-
-      <div class="team-card reveal">
-        <div class="team-photo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-          </svg>
-        </div>
-        <div class="team-info">
-          <div class="team-name">Your Name Here</div>
-          <div class="team-role">Events Coordinator</div>
-          <div class="team-grade">Grade 10 · Events</div>
-        </div>
-      </div>
-
-      <!-- Add more cards by duplicating a block above ↑ -->
-
     </div>
   </section>
 
