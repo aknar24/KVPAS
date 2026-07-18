@@ -96,12 +96,7 @@
     #cover::before {
       content: '';
       position: absolute; inset: 0;
-      background: linear-gradient(
-        to top,
-        rgba(15,25,35,0.95) 0%,
-        rgba(15,25,35,0.45) 55%,
-        rgba(15,25,35,0.15) 100%
-      );
+      background: linear-gradient(to top, rgba(15, 25, 35, 0.15) 100%);
       pointer-events: none;
     }
     .cover-content { position: relative; z-index: 2; }
@@ -112,6 +107,11 @@
       padding: 5rem 6vw 4rem;
       text-align: center;
     }
+    #cover::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgb(15 25 35 / 40%) 0%, rgb(33 64 95 / 45%) 55%, rgba(15, 25, 35, 0.15) 100%);
+      pointer-events: none;
     .countdown-title {
       font-family: 'Big Shoulders Stencil Display', cursive;
       font-size: 2.6rem; font-weight: 700; letter-spacing: .12em;
@@ -381,8 +381,8 @@
 
       <h2 class="rules-title">PRABA '26 Rules &amp; Regulations</h2>
       <p class="rules-body">
-        Read through the full rules and submission guidelines before entering this year's competition —
-        categories, image specs, and judging criteria are all covered in the document below.
+        Read through the full rules and submission guidelines before entering the competition
+        Categories, image specs, and judging criteria are all covered in the document below.
       </p>
 
       <!-- 👇 Replace href with your real rules PDF -->
