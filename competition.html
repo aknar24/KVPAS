@@ -87,8 +87,7 @@
     #cover {
       min-height: 41vh;
       position: relative;
-      /* 👇 Replace BG-competition.jpg with your actual cover image */
-      background-image: url(BG-competition.jpg);
+      background-image: url(competition-BG.png);
       background-size: cover;
       background-position: center;
       padding: 197px 6vw 5rem;
@@ -106,16 +105,6 @@
       pointer-events: none;
     }
     .cover-content { position: relative; z-index: 2; }
-    .cover-eyebrow {
-      font-family: 'Big Shoulders Stencil Display', cursive;
-      display: flex; justify-content: center; align-items: center; gap: .6rem;
-      font-size: 4.75rem; font-weight: 600; letter-spacing: .18em;
-      text-transform: uppercase; color: var(--text);
-      margin-bottom: 1rem;
-    }
-    .cover-eyebrow::before, .cover-eyebrow::after {
-      content: ''; display: block; width: 111px; height: 10px; background: var(--gold);
-    }
 
     /* ── SECTION 2: COUNTDOWN ── */
     #countdown {
@@ -196,7 +185,7 @@
       border-radius: 50px;
       transition: transform .2s, box-shadow .2s;
     }
-    .register-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,200,66,0.25); }
+    .register-btn:hover { transform: translateY(-2px); box-shadow: 0 1px 30px rgba(245,200,66,0.25); }
 
     /* Gallery link box — border fills gold on hover, text flips to dark */
     .gallery-link-btn {
@@ -333,7 +322,7 @@
     </a>
     <ul class="nav-links">
       <li><a href="index.html">HOME</a></li>
-      <li><a href="gallery.html">GALLERY</a></li>
+      <li><a href="gallery.html">EVENTS</a></li>
       <li><a href="team.html">TEAM</a></li>
       <li><a href="competition.html" class="active">COMPETITION</a></li>
       <li><a href="contact.html">CONTACT</a></li>
@@ -362,9 +351,6 @@
        to your actual image filename.
        ════════════════════════════════ -->
   <section id="cover">
-    <div class="cover-content reveal">
-      <div class="cover-eyebrow"><b>PRABA '26</b></div>
-    </div>
   </section>
 
   <!-- ════════════════════════════════
