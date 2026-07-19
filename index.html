@@ -103,18 +103,18 @@
     /* Aperture ring — the signature element */
     .aperture-ring {
       position: absolute;
-      width: 520px; height: 520px;
+      width: 640px; height: 640px;
       border-radius: 50%;
-      border: 1px solid rgba(245,200,66,.12);
+      border: 3px solid rgb(219 68 68 / 10%);
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       animation: ring-spin 28s linear infinite;
     }
     .aperture-ring::before {
       content: '';
-      position: absolute; inset: 22px;
+      position: absolute; inset: -46px;
       border-radius: 50%;
-      border: 1px dashed rgba(245,200,66,.07);
+      border: 1px dashed rgb(245 200 66 / 10%);
     }
     .aperture-ring::after {
       content: '';
@@ -136,8 +136,8 @@
     /* Blade marks on ring */
     .blade {
       position: absolute;
-      width: 2px; height: 30px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
+      width: 2px; height: 316px;
+      background: linear-gradient(to bottom, #f58942, transparent);
       top: 0; left: 50%; transform-origin: bottom center;
       opacity: .5;
     }
@@ -180,17 +180,6 @@
     .hero-cta:hover { background: #ffd84d; transform: translateY(-2px); }
     .hero-cta svg { width: 16px; height: 16px; }
 
-    .hero-scroll {
-      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: .4rem;
-      color: var(--text-muted); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase;
-      animation: bounce 2.4s ease-in-out infinite;
-    }
-    .hero-scroll::after {
-      content: ''; width: 1px; height: 42px; background: linear-gradient(to bottom, var(--text-muted), transparent);
-    }
-    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
-
     /* ── SECTION COMMON ── */
     section { padding: 6rem 6vw; }
     .section-label {
@@ -199,7 +188,7 @@
       display: flex; align-items: center; gap: .6rem;
       margin-bottom: .75rem;
     }
-    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); max-width: 60px; }
+    .section-label::after { content: ''; flex: 1; height: 2px; background: var(--border); max-width: 60px; }
     .section-title {
       font-family: 'Playfair Display', serif;
       font-size: clamp(2rem, 4vw, 3rem);
@@ -218,11 +207,15 @@
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 5rem; align-items: center; margin-top: 3.5rem;
+      gap: 5rem; align-items: center; margin-top: 1.5rem;
     }
-    .about-stats {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem;
+    .about-label {
+      font-size: 1.72rem; font-weight: 600; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--gold);
+      display: flex; align-items: center; gap: .6rem;
+      margin-bottom: .75rem;
     }
+    .about-label span { color: var(--gold); }
     .stat-card {
       border: 1px solid var(--border);
       border-radius: 4px; padding: 1.4rem;
@@ -354,7 +347,7 @@
     .footer-para {
        font-size: medium; color:var(--text);
        text-align: center;
-       line-height: 1.8; opacity: .35;
+       line-height: 1.8; opacity: .65;
        font-style: normal; max-width: 100%;
     }
 
@@ -530,14 +523,12 @@
         Explore Gallery
       </a>
     </div>
-    <div class="hero-scroll">Scroll</div>
   </section>
 
   <!-- ABOUT -->
   <section id="about">
     <div class="reveal">
-      <div class="section-label">Who We Are</div>
-      <h2 class="section-title">More Than a Club —<br>A <span>Community</span></h2>
+      <div class="about-label">Who We Are</div>
     </div>
     <div class="about-grid">
       <div class="reveal">
@@ -547,24 +538,6 @@
         <p class="section-body" style="margin-top:1rem;">
           We host workshops, photo walks, editing sessions, and competitions throughout the year — giving every member a chance to develop their eye, technical skill, and unique voice.
         </p>
-        <div class="about-stats">
-          <div class="stat-card reveal">
-            <div class="stat-num">120+</div>
-            <div class="stat-desc">Active Members</div>
-          </div>
-          <div class="stat-card reveal">
-            <div class="stat-num">8</div>
-            <div class="stat-desc">Years Active</div>
-          </div>
-          <div class="stat-card reveal">
-            <div class="stat-num">30+</div>
-            <div class="stat-desc">Events Per Year</div>
-          </div>
-          <div class="stat-card reveal">
-            <div class="stat-num">14</div>
-            <div class="stat-desc">Awards Won</div>
-          </div>
-        </div>
       </div>
       <div class="reveal">
         <div class="about-visual">
@@ -583,14 +556,8 @@
   <section id="gallery">
     <div class="gallery-header">
       <div class="reveal">
-        <div class="section-label">Our Work</div>
-        <h2 class="section-title">The <span>Gallery</span></h2>
-      </div>
-      <div class="gallery-filters reveal">
-        <button class="filter-btn active">All</button>
-        <button class="filter-btn">Portrait</button>
-        <button class="filter-btn">Landscape</button>
-        <button class="filter-btn">Events</button>
+        <div class="section-label">Our Works</div>
+        <h2 class="section-title">Event <span>Gallery</span></h2>
       </div>
     </div>
 
@@ -711,7 +678,7 @@
   <section id="contact">
     <div class="reveal visible">
       
-      <h2 class="contact-logo"><img src="BR.png" style="max-width: 45%;" ;=""></h2>
+      <h2 class="contact-logo"><img src="BR.png" style="width: 535px; max-width: 90%;" ;=""></h2>
       <p class="contact-body" style="margin-top: -1rem;">SINCE 1959</p>
     <!-- Paragraph -->
     <p class="footer-para" style="margin-top: 1rem;">
