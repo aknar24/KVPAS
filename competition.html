@@ -62,7 +62,7 @@
       cursor: pointer;
       z-index: 210;
     }
-    .menu-toggle span { display: block; width: 100%; height: 2px; background: var(--gold); }
+    .menu-toggle span { display: block; width: 100%; height: 2px; background: #73a3c2; }
     .mobile-nav {
       position: fixed; top: 0; right: 0;
       width: 78vw; max-width: 320px; height: 100vh;
@@ -330,11 +330,11 @@
 
   <div class="mobile-nav">
     <button class="mobile-nav-close" aria-label="Close menu" onclick="document.querySelector('.mobile-nav').classList.remove('open')">&times;</button>
-    <ul>
+    <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="gallery.html">Gallery</a></li>
       <li><a href="team.html">Team</a></li>
-      <li><a href="competition.html">Competition</a></li>
+      <li><a href="competition.html" class="active">Competition</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </div>
@@ -408,7 +408,7 @@
        ════════════════════════════════ -->
   <section id="contact">
     <div class="reveal visible">
-      <h2 class="contact-logo"><img src="BR.png" style="max-width: 45%;"></h2>
+      <h2 class="contact-logo"><img src="BR.png" style="width: 535px; max-width: 90%;"></h2>
       <p class="contact-body" style="margin-top: -1rem;">SINCE 1959</p>
       <p class="footer-para" style="margin-top: 1rem;">
         Kegalu Vidyalay Photographic Art Society rooted in 1959, we blend tradition with fresh vision, using light and<br>
