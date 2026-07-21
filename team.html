@@ -51,6 +51,37 @@
     .nav-links a:hover { color: var(--gold); }
     .nav-links a.active { color: var(--gold); }
 
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 32px; height: 32px;
+      background: none; border: none;
+      cursor: pointer;
+      z-index: 210;
+    }
+    .menu-toggle span { display: block; width: 100%; height: 2px; background: var(--gold-dim); }
+    .mobile-nav {
+      position: fixed; top: 0; right: 0;
+      width: 78vw; max-width: 320px; height: 100vh;
+      background: var(--bg-deep);
+      border-left: 1px solid var(--border);
+      z-index: 200;
+      transform: translateX(100%);
+      transition: transform .3s ease;
+      padding: 2rem;
+    }
+    .mobile-nav.open { transform: translateX(0); }
+    .mobile-nav ul { list-style: none; margin-top: 3rem; display: flex; flex-direction: column; gap: 1.5rem; }
+    .mobile-nav a {
+      font-family: 'Big Shoulders Stencil Display', cursive;
+      color: var(--text); text-decoration: none;
+      font-size: 1.3rem; letter-spacing: .08em; text-transform: uppercase;
+    }
+    .mobile-nav a:hover { color: var(--gold); }
+    .mobile-nav-close { background: none; border: none; color: var(--text); font-size: 1.8rem; cursor: pointer; float: right; }
+
     /* ── SECTION 1: COVER ── */
     #cover {
       min-height: 41vh;
@@ -99,8 +130,8 @@
       margin-bottom: .75rem;
     }
     .section-label::after {
-      content: ''; flex: 1; height: 1px;
-      background: var(--border); max-width: 60px;
+      content: ''; flex: 1; height: 2px;
+      background: rgb(245 200 66 / 35%); max-width: 60px;
     }
     .section-title {
       font-family: 'Playfair Display', serif;
@@ -272,6 +303,7 @@
     }
     @media (max-width: 600px) {
       .nav-links { display: none; }
+      .menu-toggle { display: flex; }
       .team-card { flex: 0 0 calc(50% - .75rem); width: calc(50% - .75rem); max-width: none; }
     }
   </style>
@@ -295,7 +327,21 @@
       <li><a href="competition.html">COMPETITION</a></li>
       <li><a href="contact.html">CONTACT</a></li>
     </ul>
+    <button class="menu-toggle" aria-label="Toggle menu" onclick="document.querySelector('.mobile-nav').classList.add('open')">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <div class="mobile-nav">
+    <button class="mobile-nav-close" aria-label="Close menu" onclick="document.querySelector('.mobile-nav').classList.remove('open')">&times;</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="team.html" class="active">Team</a></li>
+      <li><a href="competition.html" class="active">Competition</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
 
   <!-- ════════════════════════════════
        SECTION 1 — COVER IMAGE
@@ -306,7 +352,7 @@
        ════════════════════════════════ -->
   <section id="cover">
     <div class="cover-content reveal">
-      <div class="cover-eyebrow"><b>Meet the Team</b></div>
+      <div class="cover-eyebrow"><b style="text-align: center;">Meet the Team</b></div>
     </div>
   </section>
 
@@ -331,9 +377,9 @@
           </svg>
         </div>
         <div class="team-info">
-          <div class="team-name">Your Name Here</div>
+          <div class="team-name">Ravihara Nirmal</div>
           <div class="team-role">President</div>
-          <div class="team-grade">Grade 12 · Landscape</div>
+          <div class="team-grade">Grade 13</div>
         </div>
       </div>
 
@@ -344,9 +390,9 @@
           </svg>
         </div>
         <div class="team-info">
-          <div class="team-name">Your Name Here</div>
+          <div class="team-name">Randhika Kulasekara</div>
           <div class="team-role">Vice President</div>
-          <div class="team-grade">Grade 12 · Portrait</div>
+          <div class="team-grade">Grade 12</div>
         </div>
       </div>
 
@@ -357,9 +403,9 @@
           </svg>
         </div>
         <div class="team-info">
-          <div class="team-name">Your Name Here</div>
+          <div class="team-name">Janithu N. Cooray</div>
           <div class="team-role">Secretary</div>
-          <div class="team-grade">Grade 11 · Street</div>
+          <div class="team-grade">Grade 13</div>
         </div>
       </div>
 
@@ -370,9 +416,9 @@
           </svg>
         </div>
         <div class="team-info">
-          <div class="team-name">Your Name Here</div>
-          <div class="team-role">Creative Director</div>
-          <div class="team-grade">Grade 11 · Abstract</div>
+          <div class="team-name">Tharana</div>
+          <div class="team-role">Vice Secretary</div>
+          <div class="team-grade">Grade 12</div>
         </div>
       </div>
 
@@ -383,9 +429,9 @@
           </svg>
         </div>
         <div class="team-info">
-          <div class="team-name">Your Name Here</div>
-          <div class="team-role">Equipment Manager</div>
-          <div class="team-grade">Grade 10 · Nature</div>
+          <div class="team-name">Sandas Gunawardana</div>
+          <div class="team-role">Treasure</div>
+          <div class="team-grade">Grade 10</div>
         </div>
       </div>
 
@@ -396,9 +442,35 @@
           </svg>
         </div>
         <div class="team-info">
-          <div class="team-name">Your Name Here</div>
-          <div class="team-role">Events Coordinator</div>
-          <div class="team-grade">Grade 10 · Events</div>
+          <div class="team-name">Sahiru Gunarathne</div>
+          <div class="team-role">Main Editor</div>
+          <div class="team-grade">Grade 13</div>
+        </div>
+      </div>
+
+      <div class="team-card reveal">
+        <div class="team-photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+        <div class="team-info">
+          <div class="team-name">N.A.</div>
+          <div class="team-role">Main Organize</div>
+          <div class="team-grade">Grade 13</div>
+        </div>
+      </div>
+
+      <div class="team-card reveal">
+        <div class="team-photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+        <div class="team-info">
+          <div class="team-name">Vihaga Saratchandra</div>
+          <div class="team-role">Coordinater</div>
+          <div class="team-grade">Grade 12</div>
         </div>
       </div>
 
@@ -413,8 +485,8 @@
        ════════════════════════════════ -->
   <section id="contact">
     <div class="reveal visible">
-      <h2 class="contact-logo"><img src="BR.png" style="max-width: 45%;"></h2>
-      <p class="contact-body" style="margin-top: -1rem;">SINCE 1959</p>
+      <h2 class="contact-logo"><img src="BR.png" style="width: 535px; max-width: 100%;"></h2>
+      <p class="contact-body" style="margin-top: -0.5rem;">SINCE 1959</p>
       <p class="footer-para" style="margin-top: 1rem;">
         Kegalu Vidyalay Photographic Art Society rooted in 1959, we blend tradition with fresh vision, using light and<br>
         frame to reflect who we were, who we are, and who we will become.
