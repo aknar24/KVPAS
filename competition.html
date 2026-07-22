@@ -182,6 +182,46 @@
     }
     .register-btn:hover { transform: translateY(-2px); box-shadow: 0 1px 30px rgba(245,200,66,0.25); }
 
+    .closed-banner {
+      display: none;
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);   /* full-bleed trick: breaks out of the section's padding */
+      margin-top: 2.5rem; margin-bottom: 2.5rem;
+      padding: 1.6rem 0;
+      background: repeating-linear-gradient(
+        135deg,
+        #f5c842 0 26px,
+        #14181b 26px 52px
+      );
+      border-top: 4px solid #14181b;
+      border-bottom: 4px solid #14181b;
+      text-align: center;
+    }
+    .closed-banner.show { display: block; }
+    .closed-banner span {
+      font-family: 'Big Shoulders Stencil Display', cursive;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 900; letter-spacing: .12em; text-transform: uppercase;
+      color: #ff3b3b;
+      -webkit-text-stroke: 1.5px #14181b;
+      text-shadow: 0 0 12px rgba(0,0,0,0.6);
+    }
+
+    /* Muted/disabled look for expired state */
+    .countdown-box.expired { border-color: var(--text-muted); }
+    .countdown-box.expired .countdown-num { color: var(--text-muted); }
+    .register-btn.disabled {
+      background: var(--text-muted);
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+
+    #gallery {
+      background: var(--bg-main);
+      padding: 4rem 6vw;
+      text-align: center;
+    }
+
     /* Gallery link box — border fills gold on hover, text flips to dark */
     .gallery-link-btn {
       border: 1px solid #bb8900;
@@ -360,7 +400,10 @@
   <section id="countdown">
     <div class="reveal">
       <div class="countdown-title">Countdown</div>
-      <div class="countdown-grid" id="countdown-timer" data-deadline="2026-10-15T23:59:00">
+      <div class="countdown-grid" id="countdown-timer" data-deadline="2026-07-20T23:59:00">
+        <div class="closed-banner" id="closed-banner">
+          <span>Competition Closed</span>
+        </div>
         <div class="countdown-box">
           <div class="countdown-num" id="cd-days">00</div>
           <div class="countdown-label">Days</div>
@@ -393,13 +436,15 @@
       <div class="cta-row">
         <!-- 👇 Replace href with your real registration form link -->
         <a href="https://forms.gle/your-form-here" target="_blank" class="register-btn">Register</a>
-
-        <a href="gallery.html" class="gallery-link-btn">
-          <div class="btn-title">PRABA '26</div>
-          <div class="btn-subtitle">Competition Gallery</div>
-        </a>
       </div>
     </div>
+  </section>
+
+   <section id="gallery">
+    <a href="gallery.html" class="gallery-link-btn">
+      <div class="btn-title">PRABA '26</div>
+      <div class="btn-subtitle">Competition Gallery</div>
+    </a>
   </section>
 
   <!-- ════════════════════════════════
@@ -500,7 +545,21 @@
     const deadline = new Date(timerEl.dataset.deadline).getTime();
     function tickCountdown() {
       const now = Date.now();
-      const diff = Math.max(0, deadline - now);
+      const diff = deadline - now;
+      const banner = document.getElementById('closed-banner');
+      const registerBtn = document.querySelector('.register-btn');
+      const boxes = document.querySelectorAll('.countdown-box');
+
+      if (diff <= 0) {
+        document.getElementById('cd-days').textContent = '00';
+        document.getElementById('cd-hours').textContent = '00';
+        document.getElementById('cd-mins').textContent = '00';
+        banner.classList.add('show');
+        registerBtn.classList.add('disabled');
+        boxes.forEach(b => b.classList.add('expired'));
+        return; // stops re-running the countdown math once closed
+      }
+
       const days = Math.floor(diff / 86400000);
       const hours = Math.floor((diff % 86400000) / 3600000);
       const mins = Math.floor((diff % 3600000) / 60000);
