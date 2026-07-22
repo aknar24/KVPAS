@@ -492,9 +492,9 @@
       <p class="hero-sub">
         Kegalu Vidyalay Photographic Art Society rooted in 1959, we blend tradition with fresh vision, using light and frame to reflect who we were, who we are, and who we will become.
       </p>
-      <a href="#gallery" class="hero-cta">
+      <a class="hero-cta" onclick="scrollDown()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M20.188 10.934C20.717 11.416 21 11.698 21 12c0 .302-.283.584-.812 1.066C19.056 14.08 16.309 16 12 16s-7.056-1.92-8.188-2.934C3.283 12.584 3 12.302 3 12c0-.302.283-.584.812-1.066C4.944 9.92 7.691 8 12 8s7.056 1.92 8.188 2.934z"/></svg>
-        Explore Gallery
+        Explore
       </a>
     </div>
   </section>
@@ -554,7 +554,7 @@
         <div class="gallery-overlay"><span class="gallery-overlay-text">Macro World</span></div>
       </div>
       <div class="gallery-item">
-        <img src="BG-competiton.png">
+        <img src="BG-competition.png">
         <div class="gallery-overlay"><span class="gallery-overlay-text">Street Moments</span></div>
       </div>
       <div class="gallery-item">
@@ -588,8 +588,8 @@
   <!-- CONTACT -->
   <section id="contact">
     <div class="reveal visible">
-      <h2 class="contact-logo"><img src="BR.png" style="width: 535px; max-width: 90%;"></h2>
-      <p class="contact-body" style="margin-top: -1rem;">SINCE 1959</p>
+      <h2 class="contact-logo"><img src="BR.png" style="width: 535px; max-width: 100%;"></h2>
+      <p class="contact-body" style="margin-top: -0.5rem;">SINCE 1959</p>
       <p class="footer-para" style="margin-top: 1rem;">
         Kegalu Vidyalay Photographic Art Society rooted in 1959, we blend tradition with fresh vision, using light and<br>
         frame to reflect who we were, who we are, and who we will become.
@@ -679,6 +679,12 @@
       });
     });
 
+    function scrollDown() {
+        window.scrollBy({
+           top: 520,
+           behavior: "smooth"
+    });
+    }
     // Form submit
     function handleSubmit() {
       alert('Thank you for reaching out! We will get back to you soon. 📷');
